@@ -1,3 +1,28 @@
+#![feature(asm)]
+
+fn bogo(iter: u128) -> u128 {
+    let start = std::time::SystemTime::now();
+    for _ in 0..iter {
+        unsafe {
+            asm!("nop");
+            asm!("nop");
+            asm!("nop");
+            asm!("nop");
+            asm!("nop");
+            asm!("nop");
+            asm!("nop");
+            asm!("nop");
+            asm!("nop");
+            asm!("nop");
+        }
+    }
+    match start.elapsed() {
+        Ok(elapsed) => { elapsed.as_nanos() }
+        Err(_e) => { 0 }
+    }
+}
+
+
 /// Runs `n` rounds of Blake2b hashing.
 fn hash(iter: u128) -> u128 {
     use blake2::{Blake2b, Digest};
@@ -11,7 +36,7 @@ fn hash(iter: u128) -> u128 {
         data = base64::encode(hasher.finalize().as_slice());
     }
     match start.elapsed() {
-        Ok(elapsed) => { elapsed.as_nanos() }
+        Ok(elapsed) => { elapsed.as_micros() }
         Err(_e) => { 0 }
     }
 }
@@ -90,7 +115,7 @@ fn life(iter: u128) -> u128 {
         turn_on_corners(&mut a);
     }
     match start.elapsed() {
-        Ok(elapsed) => { elapsed.as_nanos() }
+        Ok(elapsed) => { elapsed.as_micros() }
         Err(_e) => { 0 }
     }
 }
@@ -99,6 +124,7 @@ fn life(iter: u128) -> u128 {
 use num_format::{Locale, ToFormattedString};
 
 fn main() {
+    println!("bogo  : {}", bogo(50000).to_formatted_string(&Locale::en));
     println!("blake : {}", hash(100000).to_formatted_string(&Locale::en));
     println!("life  : {}", life(400).to_formatted_string(&Locale::en));
 }
