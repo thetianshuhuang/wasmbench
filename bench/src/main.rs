@@ -96,12 +96,9 @@ fn life(iter: u128) -> u128 {
 }
 
 
+use num_format::{Locale, ToFormattedString};
 
 fn main() {
-    for _ in 0..3 {
-        println!("{} {}", hash(10000), life(40));
-    }
+    println!("blake : {}", hash(100000).to_formatted_string(&Locale::en));
+    println!("life  : {}", life(400).to_formatted_string(&Locale::en));
 }
-
-
-
