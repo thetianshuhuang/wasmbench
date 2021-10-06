@@ -17,7 +17,7 @@ fn bogo(iter: u128) -> u128 {
         }
     }
     match start.elapsed() {
-        Ok(elapsed) => { elapsed.as_nanos() }
+        Ok(elapsed) => { elapsed.as_millis() }
         Err(_e) => { 0 }
     }
 }
@@ -36,7 +36,7 @@ fn hash(iter: u128) -> u128 {
         data = base64::encode(hasher.finalize().as_slice());
     }
     match start.elapsed() {
-        Ok(elapsed) => { elapsed.as_micros() }
+        Ok(elapsed) => { elapsed.as_millis() }
         Err(_e) => { 0 }
     }
 }
@@ -115,16 +115,20 @@ fn life(iter: u128) -> u128 {
         turn_on_corners(&mut a);
     }
     match start.elapsed() {
-        Ok(elapsed) => { elapsed.as_micros() }
+        Ok(elapsed) => { elapsed.as_millis() }
         Err(_e) => { 0 }
     }
 }
 
 
-use num_format::{Locale, ToFormattedString};
-
 fn main() {
-    println!("bogo  : {}", bogo(50000).to_formatted_string(&Locale::en));
-    println!("blake : {}", hash(100000).to_formatted_string(&Locale::en));
-    println!("life  : {}", life(400).to_formatted_string(&Locale::en));
+    let n = 10;
+    print!("{{");
+    for i in 0..n {
+        print!(
+            "{{\"bogo\": {}, \"blake\": {}, \"life\": {}}}",
+            bogo(50000000), hash(100000), life(400));
+        if i < n - 1 { print!(","); }
+    }
+    println!("}}")
 }
