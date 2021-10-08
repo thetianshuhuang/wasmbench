@@ -123,12 +123,12 @@ fn life(iter: u128) -> u128 {
 
 fn main() {
     let n = 10;
-    print!("{{");
+    print!("[");
     for i in 0..n {
         print!(
             "{{\"bogo\": {}, \"blake\": {}, \"life\": {}}}",
             bogo(50000000), hash(100000), life(400));
         if i < n - 1 { print!(","); }
     }
-    println!("}}")
+    println!("]")
 }
