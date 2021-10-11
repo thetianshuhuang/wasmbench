@@ -1,7 +1,9 @@
 #![feature(asm)]
 
+use std::time::SystemTime;
+
 fn bogo(iter: u128) -> u128 {
-    let start = std::time::SystemTime::now();
+    let start = SystemTime::now();
     for _ in 0..iter {
         unsafe {
             asm!("nop");

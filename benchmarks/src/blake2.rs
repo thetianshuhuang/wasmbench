@@ -1,10 +1,12 @@
+use std::time::SystemTime;
+
 /// Runs `n` rounds of Blake2b hashing.
 fn hash(iter: u128) -> u128 {
     use blake2::{Blake2b, Digest};
 
     let mut data = String::from("Hello world!");
 
-    let start = std::time::SystemTime::now();
+    let start = SystemTime::now();
     for _ in 0..iter {
         let mut hasher = Blake2b::new();
         hasher.update(data);

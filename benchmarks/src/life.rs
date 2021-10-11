@@ -1,3 +1,5 @@
+use std::time::SystemTime;
+
 // From ndarray examples
 use ndarray::prelude::*;
 
@@ -65,7 +67,7 @@ fn life(iter: u128) -> u128 {
     let mut scratch = Board::zeros((N, N));
     turn_on_corners(&mut a);
 
-    let start = std::time::SystemTime::now();
+    let start = SystemTime::now();
     for _ in 0..iter {
         iterate(&mut a, &mut scratch);
         turn_on_corners(&mut a);
@@ -78,5 +80,5 @@ fn life(iter: u128) -> u128 {
 
 
 fn main() {
-    println!("{}", life(100));
+    println!("{}", life(10));
 }
