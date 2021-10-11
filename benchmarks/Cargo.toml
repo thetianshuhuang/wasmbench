@@ -1,0 +1,21 @@
+[package]
+name = "benchmarks"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+blake2 = "0.9"
+base64 = "0.13.0"
+ndarray = "0.15.0"
+
+[[bin]]
+name = "bogo"
+path = "src/bogo.rs"
+
+[[bin]]
+name = "blake2"
+path = "src/blake2.rs"
+
+[[bin]]
+name = "life"
+path = "src/life.rs"
