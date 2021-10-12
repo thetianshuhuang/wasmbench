@@ -8,7 +8,7 @@ use serde_json::{Map, to_string, json};
 use wasmer::{Store, Module, Instance, NativeFunc};
 use wasmer_wasi::WasiState;
 
-use wasmer_compiler_singlepass::Singlepass;
+// use wasmer_compiler_singlepass::Singlepass;
 use wasmer_compiler_cranelift::Cranelift;
 // use wasmer_compiler_llvm::LLVM;
 
@@ -24,7 +24,7 @@ type Mod = NativeFunc<i64, i64>;
 fn make_store(compiler_name: &String, _engine: &String) -> Store {
 
     let engine = match compiler_name.as_str() {
-        "singlepass" => { Universal::new(Singlepass::default()) },
+        // "singlepass" => { Universal::new(Singlepass::default()) },
         "cranelift" => { Universal::new(Cranelift::default()) },
         // "llvm" => { Universal::new(LLVM::default()) },
         _ => { Universal::new(Cranelift::default()) }
