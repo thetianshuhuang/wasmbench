@@ -62,7 +62,7 @@ fn turn_on_corners(z: &mut Board) {
 }
 
 
-fn life(iter: u128) -> u128 {
+fn life(iter: i64) -> u128 {
     let mut a = parse(INPUT);
     let mut scratch = Board::zeros((N, N));
     turn_on_corners(&mut a);
@@ -79,6 +79,10 @@ fn life(iter: u128) -> u128 {
 }
 
 
-fn main() {
-    println!("{}", life(10));
+fn main() {}
+
+
+#[no_mangle]
+pub extern fn benchmark(i: i64) -> i64 {
+    life(i) as i64
 }

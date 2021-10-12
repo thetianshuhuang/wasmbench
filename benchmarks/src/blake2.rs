@@ -1,7 +1,7 @@
 use std::time::SystemTime;
 
 /// Runs `n` rounds of Blake2b hashing.
-fn hash(iter: u128) -> u128 {
+fn hash(iter: i64) -> u128 {
     use blake2::{Blake2b, Digest};
 
     let mut data = String::from("Hello world!");
@@ -19,6 +19,9 @@ fn hash(iter: u128) -> u128 {
 }
 
 
-fn main() {
-    println!("{}", hash(1000));
+fn main() {}
+
+#[no_mangle]
+pub extern fn benchmark(i: i64) -> i64 {
+    hash(i) as i64
 }

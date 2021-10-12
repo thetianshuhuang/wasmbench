@@ -2,7 +2,7 @@
 
 use std::time::SystemTime;
 
-fn bogo(iter: u128) -> u128 {
+fn bogo(iter: i64) -> u128 {
     let start = SystemTime::now();
     for _ in 0..iter {
         unsafe {
@@ -25,6 +25,10 @@ fn bogo(iter: u128) -> u128 {
 }
 
 
-fn main() {
-    println!("{}", bogo(1000));
+fn main() {}
+
+
+#[no_mangle]
+pub extern fn benchmark(i: i64) -> i64 {
+    bogo(i) as i64
 }
