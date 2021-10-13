@@ -4,6 +4,7 @@ import subprocess
 import os
 import json
 import sys
+from tqdm import tqdm
 
 import cpuinfo
 
@@ -12,7 +13,7 @@ class Benchmarks:
 
     def __init__(
             self, targets=[], compiler="Cranelift", engine="Universal",
-            base_dir="../benchmarks/target/wasm32-wasi/debug",
+            base_dir="../benchmarks/target/wasm32-wasi/release",
             runtime="../runtime/target/debug/runtime"):
         self.targets = {
             t[0]: "{}:{}:{}".format(
@@ -23,13 +24,23 @@ class Benchmarks:
         self.engine = engine
         self.runtime = runtime
 
-    def evaluate(self, save=None):
-        stdout = subprocess.run(
+    def evaluate_once(self):
+        args = (
             [self.runtime, self.compiler, self.engine] 
-                + list(self.targets.values()),
-            capture_output=True).stdout
+            + list(self.targets.values()))
+        stdout = subprocess.run(args, capture_output=True).stdout
         d = json.loads(stdout)
-        result = {k: d[v] for k, v in self.targets.items()}
+        return {k: d[v] for k, v in self.targets.items()}
+
+    def evaluate(self, save=None, repeat=1):
+        evaluations = [self.evaluate_once() for _ in tqdm(range(repeat))]
+
+        result = {
+            k1: {
+                k2: [r[k1][k2] for r in evaluations]
+                for k2 in evaluations[0][k1]
+            } for k1 in evaluations[0]
+        }
 
         if save:
             result["cpuinfo"] = cpuinfo.get_cpu_info()
@@ -42,7 +53,10 @@ class Benchmarks:
 if __name__ == '__main__':
 
     Benchmarks([
-        ("bogo", 25, 1000),
+        ("bogo", 25, 100000),
         ("blake2", 25, 1000),
-        ("life", 25, 10)
-    ]).evaluate(save="../results/{}.json".format(sys.argv[1]))
+        ("life", 25, 20),
+        ("exponential", 25, 10)
+    ]).evaluate(
+        save="../results/{}.json".format(sys.argv[1]),
+        repeat=int(sys.argv[2]))

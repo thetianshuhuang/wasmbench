@@ -1,7 +1,7 @@
 use std::time::SystemTime;
 
 /// Runs `n` rounds of Blake2b hashing.
-fn hash(iter: i64) -> u128 {
+fn hash(iter: i64) -> i64 {
     use blake2::{Blake2b, Digest};
 
     let mut data = String::from("Hello world!");
@@ -13,15 +13,12 @@ fn hash(iter: i64) -> u128 {
         data = base64::encode(hasher.finalize().as_slice());
     }
     match start.elapsed() {
-        Ok(elapsed) => { elapsed.as_nanos() }
+        Ok(elapsed) => { elapsed.as_nanos() as i64 }
         Err(_e) => { 0 }
     }
 }
 
 
-fn main() {}
-
 #[no_mangle]
-pub extern fn benchmark(i: i64) -> i64 {
-    hash(i) as i64
-}
+pub extern fn benchmark(i: i64) -> i64 { hash(i) }
+fn main() {}
