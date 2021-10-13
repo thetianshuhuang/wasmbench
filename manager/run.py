@@ -58,6 +58,7 @@ if __name__ == '__main__':
         ("life", 25, 20),
         ("exponential", 25, 10),
         ("bigarray", 25, 10000)
+        ("knn", 25, 1000)
     ]).evaluate(
         save="../results/{}.json".format(sys.argv[1]),
         repeat=int(sys.argv[2]))

@@ -8,6 +8,7 @@ rand = "0.8.4"
 blake2 = "0.9"
 base64 = "0.13.0"
 ndarray = "0.15.0"
+nabo = "0.2.1"
 
 [[bin]]
 name = "bogo"
@@ -24,3 +25,6 @@ path = "src/exponential.rs"
 [[bin]]
 name = "bigarray"
 path = "src/bigarray.rs"
+[[bin]]
+name = "knn"
+path = "src/knn.rs"

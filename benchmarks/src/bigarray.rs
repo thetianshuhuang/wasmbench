@@ -15,6 +15,7 @@ fn bigarray(iter: i64) -> i64 {
         let i = (rng.gen::<u64>() as usize) % d;
         let j = (rng.gen::<u64>() as usize) % d;
         arr[[i, j]] += 1.;
+        if arr[[i, j]] > 1. { arr[[i, j]] -= 0.5; }
     }
 
     match start.elapsed() {
