@@ -56,7 +56,8 @@ if __name__ == '__main__':
         ("bogo", 25, 100000),
         ("blake2", 25, 1000),
         ("life", 25, 20),
-        ("exponential", 25, 10)
+        ("exponential", 25, 10),
+        ("bigarray", 25, 10000)
     ]).evaluate(
         save="../results/{}.json".format(sys.argv[1]),
         repeat=int(sys.argv[2]))

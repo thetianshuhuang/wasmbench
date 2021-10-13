@@ -21,3 +21,6 @@ path = "src/life.rs"
 [[bin]]
 name = "exponential"
 path = "src/exponential.rs"
+[[bin]]
+name = "bigarray"
+path = "src/bigarray.rs"
