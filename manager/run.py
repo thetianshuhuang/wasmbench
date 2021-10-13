@@ -53,12 +53,12 @@ class Benchmarks:
 if __name__ == '__main__':
 
     Benchmarks([
-        ("bogo", 25, 100000),
-        ("blake2", 25, 1000),
-        ("life", 25, 20),
-        ("exponential", 25, 10),
-        ("bigarray", 25, 10000),
-        ("knn", 25, 1000)
+        ("bogo", 10, 100000),
+        ("blake2", 10, 1000),
+        ("life", 10, 20),
+        ("exponential", 10, 10),
+        ("bigarray", 10, 10000),
+        ("knn", 10, 1000)
     ]).evaluate(
         save="../results/{}.json".format(sys.argv[1]),
         repeat=int(sys.argv[2]))
